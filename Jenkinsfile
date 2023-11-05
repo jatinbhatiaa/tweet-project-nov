@@ -15,7 +15,7 @@ pipeline {
             }
         }
         
-}
+
   stage('SonarQube analysis') {
     environment{
       scannerHome = tool 'sonar-scan';
@@ -26,6 +26,6 @@ pipeline {
     }
   }
 }
-
+    }
 
 }
