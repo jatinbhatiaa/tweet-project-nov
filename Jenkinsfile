@@ -5,11 +5,14 @@ pipeline {
             
         }
     }
+    environment {
+        PATH = "/opt/apache-maven-3.9.5/bin:$PATH"
+    }
     stages{
-        stage('fetch code'){
+        stage("build"){
             steps {
-                git branch: 'main', url: 'https://github.com/jatinbhatiaa/tweet-project-nov.git'
+                sh 'mvn clean deploy'
             }
         }
-    }
+        
 }
