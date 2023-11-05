@@ -1,4 +1,6 @@
 def registry = 'https://tumbin.jfrog.io'
+def imageName = 'tumbin.jfrog.io/ttrend-docker-local/ttrend'
+def version   = '2.1.2'
 pipeline {
     agent {
         node {
@@ -72,6 +74,30 @@ pipeline {
             }
         }   
     }   
+
+       
+   
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+            stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'jfrog'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
     }
 
 }
