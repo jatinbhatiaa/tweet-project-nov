@@ -98,6 +98,14 @@ pipeline {
             }
         }
     }
+
+    stage("deploy on kube"){
+      steps{
+        script {
+          sh './deploy.sh'
+        }
+      }
+    }
     }
 
 }
